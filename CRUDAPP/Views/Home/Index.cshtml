@@ -1,0 +1,79 @@
+﻿@model IEnumerable<CRUDAPP.Models.EmployeeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    @Html.TextBox("search")
+    <input type="submit" value="search" />
+
+}
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.employee_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employee_forename)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employee_surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.department)
+        </th>
+        <th></th>
+    </tr>
+
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="3" style="color:red">
+                No Data Found
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.employee_number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.employee_forename)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.employee_surname)
+                </td>
+                <td>
+                    @String.Format("{0:dd/MM/yyyy}", item.dob)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.department)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { employee_id = item.employee_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { employee_id = item.employee_id })
+                </td>
+            </tr>
+        }
+    }
+
+
+
+
+</table>
